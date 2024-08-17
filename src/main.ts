@@ -16,13 +16,17 @@ function createMap(gameOfLife: GameOfLife) {
   canvas.height = gameOfLife.h * cellSize
   const context = canvas.getContext('2d') as CanvasRenderingContext2D
 
+  context.fillStyle = "pink"
+  context.fillRect(0, 0, canvas.width, canvas.height)
+
+  context.fillStyle = "crimson"
+
   gameOfLife.state.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
       const x = colIndex * cellSize
       const y = rowIndex * cellSize
 
       if (col) {
-        context.fillStyle = '#00ffff'
         context.fillRect(x, y, cellSize, cellSize)
       }
     })
@@ -49,9 +53,10 @@ const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) })
 
 const torus = new THREE.Mesh(geometry, material)
 
-torus.material.depthTest = false;
-torus.material.transparent = true;
+// torus.material.depthTest = false;
+// torus.material.transparent = true;
 
+scene.background = new THREE.Color("pink")
 scene.add( torus );
 
 camera.position.z = 40;
