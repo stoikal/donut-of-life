@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "three": "^0.167.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.1"
+  },
+  "engines": {
+    "node": "20",
+    "npm": "10"
+  }
+}
