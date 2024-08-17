@@ -8,13 +8,13 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-function createMap(gameOfLife) {
+function createMap(gameOfLife: GameOfLife) {
   const cellSize = 8
 
-  const canvas = document.createElement('canvas');
+  const canvas = document.createElement('canvas')
   canvas.width = gameOfLife.w * cellSize
   canvas.height = gameOfLife.h * cellSize
-  const context = canvas.getContext('2d');
+  const context = canvas.getContext('2d') as CanvasRenderingContext2D
 
   gameOfLife.state.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
@@ -22,8 +22,8 @@ function createMap(gameOfLife) {
       const y = rowIndex * cellSize
 
       if (col) {
-        context.fillStyle = '#00ffff';
-        context.fillRect(x, y, cellSize, cellSize);
+        context.fillStyle = '#00ffff'
+        context.fillRect(x, y, cellSize, cellSize)
       }
     })
   });
@@ -44,10 +44,10 @@ const d = {
 
 const gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
 
-const geometry = new THREE.TorusGeometry(d.torusRadius, d.tubeRadius, d.radialSegments, d.tubularSegments ); 
-const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) }); 
+const geometry = new THREE.TorusGeometry(d.torusRadius, d.tubeRadius, d.radialSegments, d.tubularSegments)
+const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) })
 
-const torus = new THREE.Mesh( geometry, material );
+const torus = new THREE.Mesh(geometry, material)
 
 torus.material.depthTest = false;
 torus.material.transparent = true;
@@ -60,7 +60,7 @@ const MAX_FPS = 8
 const interval = 1000 / MAX_FPS;
 let lastTimestamp = 0
 
-function animate(timestamp) {
+function animate(timestamp: number) {
   renderer.render( scene, camera );
 
   torus.rotation.x += .005;

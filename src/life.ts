@@ -1,5 +1,11 @@
+type Row =boolean[]
+
 class GameOfLife {
-  constructor (w, h) {
+  w: number
+  h: number
+  state: Row[]
+
+  constructor (w: number, h: number) {
     this.w = w
     this.h = h
     this.state = this.#getInitialState()
@@ -16,11 +22,11 @@ class GameOfLife {
       )
   }
 
-  #getCellValue(x, y) {
-    return this.state.at(x)?.at(y)
+  #getCellValue(x: number, y: number) {
+    return this.state.at(x)?.at(y) ?? false
   }
 
-  #getNeighbors(x, y){
+  #getNeighbors(x: number, y: number){
     const n_ = this.#getCellValue(x, y - 1)
     const ne = this.#getCellValue(x + 1, y - 1)
     const e_ = this.#getCellValue(x + 1, y)
@@ -33,7 +39,7 @@ class GameOfLife {
     return [n_, ne, e_, se, s_, sw, w_, nw]
   }
 
-  #countAlive(arr) {
+  #countAlive(arr: boolean[]) {
     return arr.filter(item => item).length
   }
 
