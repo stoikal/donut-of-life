@@ -1,5 +1,6 @@
 import * as THREE from "three"
 import GameOfLife from "./life"
+import Controls from "./controls"
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
@@ -55,11 +56,11 @@ function createMap(gameOfLife: GameOfLife) {
 const d = {
   torusRadius: 10,
   tubeRadius: 4,
-  radialSegments: 80,
-  tubularSegments: 240,
+  radialSegments: 40,
+  tubularSegments: 120,
 }
 
-const gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
+let gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
 
 const geometry = new THREE.TorusGeometry(d.torusRadius, d.tubeRadius, d.radialSegments, d.tubularSegments)
 const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) })
@@ -88,4 +89,23 @@ function animate(timestamp: number) {
   }
 }
 
-renderer.setAnimationLoop( animate )
+renderer.setAnimationLoop(animate)
+
+const controls = new Controls({
+  onDecrease: () => {
+    if (d.radialSegments > 10) {
+      d.radialSegments -= 10
+      d.tubularSegments = d.radialSegments * 3
+  
+      gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
+    }
+  },
+  onIncrease: () => {
+    d.radialSegments += 10
+    d.tubularSegments = d.radialSegments * 3
+
+    gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
+  },
+})
+
+document.body.appendChild(controls.domElement)
