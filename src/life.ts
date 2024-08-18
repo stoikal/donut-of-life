@@ -17,7 +17,7 @@ class GameOfLife {
       .map(() => new Array(this.w)
         .fill(null)
         .map(() => {
-          return Math.random() >= 0.5
+          return Math.random() >= 0.4
         })
       )
   }
