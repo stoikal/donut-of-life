@@ -5,8 +5,8 @@ const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
 
 const renderer = new THREE.WebGLRenderer()
-renderer.setSize( window.innerWidth, window.innerHeight )
-document.body.appendChild( renderer.domElement )
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.body.appendChild(renderer.domElement)
 
 function getColor (name: string) {
   const color = new THREE.Color(name)
@@ -25,8 +25,8 @@ function createMap(gameOfLife: GameOfLife) {
   
   const size = width * height
   const data = new Uint8Array(size * 4)
-  const bg = getColor("midnightblue")
-  const fg = getColor("tomato")
+  const bg = getColor("#0E314D")
+  const fg = getColor("#DB4448")
 
   gameOfLife.state.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
@@ -66,10 +66,7 @@ const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) })
 
 const torus = new THREE.Mesh(geometry, material)
 
-// torus.material.depthTest = false
-// torus.material.transparent = true
-
-scene.background = new THREE.Color("lightpink")
+scene.background = new THREE.Color("#EDC5D0")
 scene.add( torus )
 
 camera.position.z = 40
