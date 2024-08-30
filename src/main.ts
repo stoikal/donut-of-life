@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import GameOfLife from "./life"
 import Controls from "./controls"
 
@@ -72,15 +73,20 @@ scene.add( torus )
 
 camera.position.z = 40
 
+const orbitControls = new OrbitControls(camera, renderer.domElement)
+
 const MAX_FPS = 8
 const interval = 1000 / MAX_FPS
 let lastTimestamp = 0
 
+torus.rotation.x += 2.3
+torus.rotation.y += .5
+
 function animate(timestamp: number) {
   renderer.render( scene, camera )
 
-  torus.rotation.x += .005
-  torus.rotation.y += .005
+
+  orbitControls.update()
 
   if (timestamp - lastTimestamp >= interval) {
     gameOfLife.next()
