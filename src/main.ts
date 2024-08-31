@@ -36,15 +36,15 @@ function createMap(gameOfLife: GameOfLife) {
       const stride = index * 4
 
       if (col) {
-        data[ stride ] = fg.r
-        data[ stride + 1 ] = fg.g
-        data[ stride + 2 ] = fg.b
-        data[ stride + 3 ] = fg.a
+        data[stride] = fg.r
+        data[stride + 1] = fg.g
+        data[stride + 2] = fg.b
+        data[stride + 3] = fg.a
       } else {
-        data[ stride ] = bg.r
-        data[ stride + 1 ] = bg.g
-        data[ stride + 2 ] = bg.b
-        data[ stride + 3 ] = bg.a
+        data[stride] = bg.r
+        data[stride + 1] = bg.g
+        data[stride + 2] = bg.b
+        data[stride + 3] = bg.a
       }
     })
   })
@@ -64,12 +64,21 @@ const d = {
 let gameOfLife = new GameOfLife(d.tubularSegments, d.radialSegments)
 
 const geometry = new THREE.TorusGeometry(d.torusRadius, d.tubeRadius, d.radialSegments, d.tubularSegments)
-const material = new THREE.MeshBasicMaterial({ map: createMap(gameOfLife) })
+const material = new THREE.MeshStandardMaterial({ map: createMap(gameOfLife) })
 
 const torus = new THREE.Mesh(geometry, material)
 
 scene.background = new THREE.Color("#EDC5D0")
 scene.add( torus )
+
+const ambientLight = new THREE.AmbientLight( 0x404040, 70 );
+scene.add( ambientLight );
+
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+scene.add( directionalLight );
+
+// const helper = new THREE.DirectionalLightHelper( directionalLight, 5 );
+// scene.add( helper );
 
 camera.position.z = 40
 
